@@ -1,50 +1,26 @@
-# sdformat tools
+# sdformat_tools｜个人适配记录
 
-`Sdformat` (`SDF`) is used by `Gazebo` simulator to describe simulated robots and simulated environment (sim world). As ROS users, we know `URDF` is more common to describe robot's geometry, kinematic and dynamic properties in ROS community, which is used by many ROS applications like `rviz`, `moveit`, `robot_state_publisher`.
+本仓库是对上游 `sdformat_tools` 的个人 Fork，用于维护机器人描述文件转换工具在当前仿真工作空间中的适配修改。
 
-this package provides some easy, convenient and flexible tools to help us make the best use of `SDF` in ROS community:
+## 仓库用途
 
-* `xmacro4sdf`: write modular `SDF` xml by using macro  (not nest model) , refer to [xmacro](https://github.com/gezp/xmacro).
-* `sdf2urdf`: convert `SDF` to `URDF` with some limitation.
-* `urdf_generator`: urdf utility class (support sdf2urdf, merge).
+该项目提供面向 SDF（Simulation Description Format）的辅助工具，主要包括：
 
-a workflow of using SDF in ROS community with these tools:
+- **xmacro4sdf**：通过 XMacro 编写模块化 SDF
+- **sdf2urdf**：将 SDF 转换为 URDF（存在格式支持限制）
+- **urdf_generator**：提供 URDF 生成与处理接口
 
-![](workflow.png)
+这些工具用于连接 Gazebo 仿真模型描述与 ROS 生态中的 URDF 使用场景。
 
+## 当前状态
 
-## Usage
+- 目标环境：Ubuntu 24.04、ROS 2 Jazzy、Gazebo Harmonic
+- 用途：个人哨兵机器人描述与仿真适配的配套工具
+- 状态：适配与验证中，不代表上游已正式支持上述环境
 
-Installation
+## 上游项目
 
-```bash
-pip install xmacro
-# cd src of ros workspace
-git clone https://github.com/gezp/sdformat_tools.git
-# cd ros workspace
-colcon build
-```
+- 上游仓库：[gezp/sdformat_tools](https://github.com/gezp/sdformat_tools)
+- [查看上游原始 README（galactic 分支）](https://github.com/gezp/sdformat_tools/blob/galactic/README.md)
 
-xmacro4sdf
-
-```bash
-xmacro4sdf model.sdf.xmacro
-```
-
-sdf2urdf
-
-```bash
-sdf2urdf model.sdf
-```
-
-urdf_generator
-
-```python
-from sdformat_tools.urdf_generator import UrdfGenerator
-
-urdf_generator = UrdfGenerator()
-urdf_generator.parse_from_sdf_file(robot_sdf_path)
-urdf_generator.remove_joint('world_joint')
-urdf_generator.extend_urdf_file(control_urdf_path)
-robot_urdf_xml = urdf_generator.to_string()
-```
+本仓库是个人维护的 Fork，不代表上游项目的官方发布。原始代码及其许可证、版权声明仍以各自文件中的说明为准。
